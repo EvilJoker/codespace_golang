@@ -12,37 +12,13 @@ import (
 	"time"
 )
 
-// 枚举
-type TaskStatus int
-
-const (
-	TASK_STATUS_UNDONE TaskStatus = iota
-	TASK_STATUS_DONE
-)
-
-// 结构体
-type Task struct {
-	title    string
-	deadline time.Time
-	desc     string
-}
-
-func AddTask(taskArr *[]Task, task *Task) {
-	*taskArr = append(*taskArr, *task)
-	fmt.Println("Add Task: ", task.title)
-
-}
-
-func QueryTask(taskArr *[]Task) {
-	for _, task := range *taskArr {
-		fmt.Println("Query Task: ", task.title)
-	}
-}
-
 func main() {
 	fmt.Println("Hello, CliTask!")
-	var tasks []Task
-	AddTask(&tasks, &Task{"first task", time.Now(), "1"})
-	QueryTask(&tasks)
+	var taskManager TaskManager
+
+	task := taskManager.AddTask("one", "first task", time.Now())
+	taskManager.GetAllTasks()
+	taskManager.DelTask(task.id)
+	taskManager.GetAllTasks()
 
 }
